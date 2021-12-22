@@ -31,7 +31,9 @@ const Home = () => {
     const { data, loading, error, fetchMore } = useQuery(GET_NOTES)
 
     if (loading) return <p>Loading...</p>
-    if (error) return <p>Error!</p>
+    if (error) {
+        return <p>Error!</p>
+    }
     return (
         <>
             <NoteFeed notes={data.noteFeed.notes} />

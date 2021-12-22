@@ -7,7 +7,10 @@ import MyNotes from './mynotes'
 import NotePage from './note'
 import SignIn from './signin'
 import SignUp from './signup'
-import Private from '../components/Private' // define routes
+import Private from '../components/Private'
+import NewNote from './newnote'
+import UpdateNote from './updatenote'
+
 // define routes
 const Pages = () => (
     <Router>
@@ -25,6 +28,14 @@ const Pages = () => (
                 <Route path="/note/:id" element={<NotePage />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/signin" element={<SignIn />} />
+                <Route
+                    path="/note/new"
+                    element={<Private component={<NewNote />} />}
+                />
+                <Route
+                    path="/note/:id/edit"
+                    element={<Private component={<UpdateNote />} />}
+                />
             </Routes>
         </Layout>
     </Router>

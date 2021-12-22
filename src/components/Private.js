@@ -1,15 +1,8 @@
-import { gql, useApolloClient } from '@apollo/client'
+import { useApolloClient } from '@apollo/client'
 import React from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
-
-const IS_LOGGED_IN = gql`
-    query {
-        user {
-            isLoggedIn
-        }
-    }
-`
+import { IS_LOGGED_IN } from '../gql/query'
 
 const Private = ({ component }) => {
     const location = useLocation()

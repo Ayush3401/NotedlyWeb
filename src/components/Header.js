@@ -1,18 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import {gql, useApolloClient} from '@apollo/client'
-import {Link, useNavigate} from 'react-router-dom'
+import { useApolloClient, useQuery } from '@apollo/client'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../img/logo.svg'
 import ButtonAsLink from './ButtonAsLink'
+import { IS_LOGGED_IN } from '../gql/query'
 
-// local query
-const IS_LOGGED_IN = gql`
-    query {
-        user {
-            isLoggedIn
-        }
-    }
-`
 const UserState = styled.div`
     margin-left: auto;
 `
@@ -37,19 +30,12 @@ const LogoText = styled.h1`
 const Header = () => {
     const client = useApolloClient()
     const navigate = useNavigate()
-    const { user } = client.readQuery({ query: IS_LOGGED_IN })
+    const { data } = useQuery(IS_LOGGED_IN)
 
     const handleLogout = () => {
         localStorage.removeItem('token')
-        client.resetStore()
         client.writeQuery({
-            query: gql`
-                query {
-                    user {
-                        isLoggedIn
-                    }
-                }
-            `,
+            query: IS_LOGGED_IN,
             data: {
                 user: {
                     isLoggedIn: false,
@@ -66,7 +52,7 @@ const Header = () => {
                 Notedly
             </LogoText>
             <UserState>
-                {user.isLoggedIn ? (
+                {data.user.isLoggedIn ? (
                     <ButtonAsLink onClick={handleLogout}>Log Out</ButtonAsLink>
                 ) : (
                     <p>

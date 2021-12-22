@@ -1,13 +1,9 @@
 import React, { useEffect } from 'react'
-import { gql, useApolloClient, useMutation } from '@apollo/client'
+import { useApolloClient, useMutation } from '@apollo/client'
 import { useLocation, useNavigate } from 'react-router-dom'
 import UserForm from '../components/UserForm'
-
-const SIGNIN_USER = gql`
-    mutation signIn($email: String!, $password: String!) {
-        signIn(email: $email, password: $password)
-    }
-`
+import { IS_LOGGED_IN } from '../gql/query'
+import { SIGNIN_USER } from '../gql/mutation'
 
 const SignIn = () => {
     const location = useLocation()
@@ -21,13 +17,7 @@ const SignIn = () => {
         onCompleted: (data) => {
             localStorage.setItem('token', data.signIn)
             client.writeQuery({
-                query: gql`
-                    query {
-                        user {
-                            isLoggedIn
-                        }
-                    }
-                `,
+                query: IS_LOGGED_IN,
                 data: {
                     user: {
                         isLoggedIn: true,

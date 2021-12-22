@@ -1,27 +1,8 @@
 import React, { useEffect } from 'react'
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import NoteFeed from '../components/NoteFeed'
 import Button from '../components/Button'
-
-const GET_NOTES = gql`
-    query NoteFeed($cursor: String) {
-        noteFeed(cursor: $cursor) {
-            cursor
-            hasNextPage
-            notes {
-                id
-                createdAt
-                content
-                favouriteCount
-                author {
-                    username
-                    id
-                    avatar
-                }
-            }
-        }
-    }
-`
+import { GET_NOTES } from '../gql/query'
 
 const Home = () => {
     useEffect(() => {

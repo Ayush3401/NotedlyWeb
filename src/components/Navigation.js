@@ -44,10 +44,13 @@ const Navigation = () => (
                 <Link to="/">🏡Home</Link>
             </li>
             <li>
-                <Link to="/mynotes">📝My Notes</Link>
+                <Link to="/mynotes">🗒️My Notes</Link>
             </li>
             <li>
                 <Link to="/favourites">🙇‍♂️Favourites</Link>
+            </li>
+            <li>
+                <Link to="/note/new">📝New Note</Link>
             </li>
         </NavList>
     </Nav>

@@ -4,12 +4,12 @@ import {
     ApolloClient,
     ApolloProvider,
     createHttpLink,
-    gql,
     InMemoryCache,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import Pages from './pages'
 import GlobalStyle from './components/GlobalStyle'
+import { IS_LOGGED_IN } from './gql/query'
 
 const uri = process.env.API_URI
 const httpLink = createHttpLink({
@@ -46,13 +46,7 @@ const client = new ApolloClient({
 })
 
 client.writeQuery({
-    query: gql`
-        query {
-            user {
-                isLoggedIn
-            }
-        }
-    `,
+    query: IS_LOGGED_IN,
     data: {
         user: {
             isLoggedIn: !!localStorage.getItem('token'),
@@ -62,13 +56,7 @@ client.writeQuery({
 
 client.onResetStore(() => {
     client.writeQuery({
-        query: gql`
-            query {
-                user {
-                    isLoggedIn
-                }
-            }
-        `,
+        query: IS_LOGGED_IN,
         data: {
             user: { isLoggedIn: !!localStorage.getItem('token') },
         },
